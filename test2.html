@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>avec width device width</title>
+    </head>
+
+
+    <body onresize="myFunction()" onload="myFunction()">
+
+        <p>Try to resize the browser window to display the windows height and width.</p>
+
+        <h1 id="demo"></h1>
+        <h1 id="demo2"></h1>
+        <h1 id="demo3"></h1>
+
+
+        <script>
+            function myFunction() {
+                var wext = window.outerWidth;
+                var hext = window.outerHeight;
+
+                var wint = window.innerWidth;
+                var hint = window.innerHeight;
+
+                var hdoc = document.documentElement.clientHeight;
+                var wdoc = document.documentElement.clientWidth;
+
+
+                var txt3 = "client Window size: width=" + wdoc + ", height=" + hdoc;
+                var txt2 = "int Window size: width=" + wint + ", height=" + hint;
+                var txt = "ext Window size: width=" + wext + ", height=" + hext;
+                document.getElementById("demo").innerHTML = txt;
+                document.getElementById("demo2").innerHTML = txt2;
+                document.getElementById("demo3").innerHTML = txt3;
+            }
+
+
+        </script>
+
+    </body>
+
+</html>
