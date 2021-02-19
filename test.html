@@ -72,16 +72,11 @@
             var deviceTypeDetect = new MobileDetect(window.navigator.userAgent);
             // premier controle si on est sur un pc ou un support mobile.    
             if (deviceTypeDetect.mobile() === null) {
-
                 return "PC";
-
             } else {
                 if (deviceTypeDetect.tablet() === null) {
-
                     return "MO";
-
                 } else {
-
                     return "TA";
                 }
             }
@@ -89,35 +84,77 @@
 
         function checkDeviceOrientation() {
             if (window.matchMedia("(orientation: landscape)").matches) {
-                return "Landscape";
+                return "LA";
             } else {
-                return "Portrait"
+                return "PO"
             }
         }
 
+
+        function loadActualizedWebsite(deviceType, orientation) {
+
+            var useCase = deviceType + orientation;
+
+            switch (useCase) {
+                // PC Portrait
+                case 'PCPO':
+                    alert(" vous etes sur un pc en mode portrait !")
+                    break;
+                    // PC Paysage
+                case 'PCLA':
+                    alert(" vous etes sur un pc en mode paysage !")
+                    break;
+                    // Mobile Portrait
+                case 'MOPO':
+                    alert(" vous etes sur un smartphone en mode portrait !")
+                    break;
+                    // Mobile Paysage
+                case 'MOLA':
+                    alert(" vous etes sur un smartphone en mode paysage !")
+                    break;
+                    // Tablet Portrait
+                case 'TAPO':
+                    alert(" vous etes sur une tablette en mode portrait !")
+                    break;
+                    // Tablet Paysage
+                case 'TALA':
+                    alert(" vous etes sur une tablette en mode paysage !")
+                    break;
+                default:
+                    alert("Ho dude, You're the matrix");
+
+
+
+
+            }
+        }
 
         $(document).ready(function() {
 
             userDeviceType = checkDeviceType();
             userDeviceOrientation = checkDeviceOrientation();
+            loadActualizedWebsite(userDeviceType, userDeviceOrientation);
 
-            $(window).on("resize", function() {
-                //timeout pour attendre la fin du redimentionnment
-                clearTimeout(window.resizeEventFinished);
-                window.resizeEventFinished = setTimeout(function() {
-                    userDeviceOrientation = checkDeviceOrientation();
-                    alert("using pc : " + userDeviceOrientation);
-                }, 2000);
+            if (userDeviceType === "PC") {
+                $(window).on("resize", function() {
+                    //timeout pour attendre la fin du redimentionnment
+                    clearTimeout(window.resizeEventFinished);
+                    window.resizeEventFinished = setTimeout(function() {
+                        userDeviceOrientation = checkDeviceOrientation();
+                        loadActualizedWebsite(userDeviceType, userDeviceOrientation);
+                    }, 2000);
+                });
 
-            });
-
-            $(window).on("orientationchange", function() {
-                userDeviceOrientation = checkDeviceOrientation();
-                alert("using tablet or mobile : " + userDeviceOrientation);
-            });
-
-            alert("au load du site : " + userDeviceOrientation);
-            alert("au load du site : " + userDeviceType);
+            } else {
+                $(window).on("orientationchange", function() {
+                    //timeout pour attendre la fin du redimentionnment
+                    clearTimeout(window.orientationEventFinished);
+                    window.orientationEventFinished = setTimeout(function() {
+                        userDeviceOrientation = checkDeviceOrientation();
+                        loadActualizedWebsite(userDeviceType, userDeviceOrientation);
+                    }, 2000);
+                });
+            }
         });
     </script>
 
